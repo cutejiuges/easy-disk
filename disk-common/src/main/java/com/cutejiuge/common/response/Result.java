@@ -91,6 +91,13 @@ public class Result<T> implements Serializable {
     }
 
     /**
+     * 失败响应，使用错误枚举和自定义消息
+     */
+    public static <T> Result<T> error(ResultCode resultCode, String message) {
+        return new Result<>(resultCode.getCode(), message, null);
+    }
+
+    /**
      * 参数验证失败响应
      */
     public static <T> Result<T> validationError(String message, Object errors) {

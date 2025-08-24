@@ -20,7 +20,6 @@ public class RedisConfig {
      * 配置redisTemplate
      */
     @Bean
-    @ConditionalOnSingleCandidate
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         // 创建redisTemplate对象
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
