@@ -1,0 +1,82 @@
+server:
+  port: 20001
+
+spring:
+  application:
+    name: diskUserBack
+  cloud:
+    consul:
+      # consul服务器地址
+      host: 127.0.0.1
+      port: 8500
+      # 配置中心相关配置
+      config:
+        enabled: true # 是否启用配置中心，默认值true开启
+        default-context: config/${spring.application.name} # 设置应用的文件夹名称，一般是微服务的名称即可
+        profile-separator: '-' # 设置不同环境的配置名的分割符号，默认是',' 这里改成'-'
+        format: yaml # 指定配置格式为yaml
+        data-key: ${spring.application.name}Config # consul中对应的整个配置的key
+        watch:
+          enabled: true # 开启配置自动更新
+          delay: 1000 # 刷新频率为1000ms
+      # discovery服务发现相关配置
+      discovery:
+        register: true # 是否需要注册
+        service-name: ${spring.application.name}
+        port: ${server.port}
+        prefer-ip-address: true
+        ip-address: ${spring.cloud.client.ip-address}
+        heartbeat:
+          ttl: 10s
+          enabled: true
+
+# 日志配置
+logging:
+  level:
+    com.cutejiuge.user: DEBUG
+    com.cutejiuge.user.mapper: DEBUG
+    org.springframework.security: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{traceId}] %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{traceId}] %logger{36} - %msg%n"
+  file:
+    name: logs/${spring.application.name}/${spring.application.name}.log
+  logback:
+    rollingpolicy:
+      max-file-size: 100MB
+      max-history: 30
+      total-size-cap: 1GB
+
+# 业务配置
+user:
+  # JWT配置
+  jwt:
+    secret: ${JWT_SECRET:easy-disk-user-service-jwt-secret-key-2025}
+    access-token-expire: 7200  # 2小时
+    refresh-token-expire: 604800  # 7天
+
+  # 验证码配置
+  verification-code:
+    expire-minutes: 3  # 验证码有效期3分钟
+    send-interval-seconds: 60  # 发送间隔60秒
+    max-retry-times: 5  # 最大重试次数
+
+  # 图形验证码配置
+  captcha:
+    expire-minutes: 5  # 图形验证码有效期5分钟
+    length: 4  # 验证码长度
+    width: 120  # 图片宽度
+    height: 40  # 图片高度
+
+  # 用户存储配置
+  storage:
+    default-total-size: 10737418240  # 默认总存储空间10GB
+    max-total-size: 107374182400  # 最大总存储空间100GB
+
+  # 密码配置
+  password:
+    min-length: 6  # 最小长度
+    max-length: 20  # 最大长度
+    require-special-char: false  # 是否需要特殊字符
+    require-number: false  # 是否需要数字
+    require-uppercase: false  # 是否需要大写字母

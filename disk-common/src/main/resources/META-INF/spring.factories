@@ -1,3 +1,2 @@
-# spring-boot????
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   com.cutejiuge.common.config.CommonConfiguration

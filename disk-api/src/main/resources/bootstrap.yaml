@@ -1,0 +1,67 @@
+server:
+  port: 20000
+
+spring:
+  application:
+    name: easyDiskApi
+  cloud:
+    consul:
+      # consul服务器地址
+      host: 127.0.0.1
+      port: 8500
+      # 配置中心相关配置
+      config:
+        enabled: true # 是否启用配置中心，默认值true开启
+        default-context: config/${spring.application.name} # 设置应用的文件夹名称，一般是微服务的名称即可
+        profile-separator: '-' # 设置不同环境的配置名的分割符号，默认是',' 这里改成'-'
+        format: yaml # 指定配置格式为yaml
+        data-key: ${spring.application.name}Config # consul中对应的整个配置的key
+        watch:
+          enabled: true # 开启配置自动更新
+          delay: 1000 # 刷新频率为1000ms
+      # discovery服务发现相关配置
+      discovery:
+        register: true # 是否需要注册
+        service-name: ${spring.application.name}
+        port: ${server.port}
+        prefer-ip-address: true
+        ip-address: ${spring.cloud.client.ip-address}
+        heartbeat:
+          ttl: 10s
+          enabled: true
+
+# 日志配置
+logging:
+  level:
+    com.cutejiuge.user: DEBUG
+    com.cutejiuge.user.mapper: DEBUG
+    org.springframework.security: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{traceId}] %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{traceId}] %logger{36} - %msg%n"
+  file:
+    name: logs/${spring.application.name}/${spring.application.name}.log
+  logback:
+    rollingpolicy:
+      max-file-size: 100MB
+      max-history: 30
+      total-size-cap: 1GB
+
+
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.cutejiuge.api
+# knife4j的增强配置，不需要增强可以不配
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
