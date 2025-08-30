@@ -1,6 +1,5 @@
 package com.cutejiuge.api.service;
 
-import com.cutejiuge.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,8 +17,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     // 用户服务RPC接口
-    @DubboReference
-    private UserService userService;
+//    @DubboReference
+//    private UserService userService;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return null;

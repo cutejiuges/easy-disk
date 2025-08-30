@@ -40,6 +40,7 @@ public enum ResultCode {
     ACCOUNT_LOCKED(20013, "账号已锁定"),
     EMAIL_FORMAT_ERROR(20014, "邮箱格式错误"),
     PASSWORD_FORMAT_ERROR(20015, "密码格式错误"),
+    VERIFICATION_CODE_USED(20016, "验证码已使用"),
 
     // ========== 文件服务错误码 (30000-39999) ==========
     FILE_NOT_FOUND(30001, "文件不存在"),
@@ -73,7 +74,8 @@ public enum ResultCode {
     EMAIL_TEMPLATE_NOT_FOUND(50002, "邮件模板不存在"),
     SEND_FREQUENCY_TOO_HIGH(50003, "发送频率过高"),
     EMAIL_ADDRESS_INVALID(50004, "邮箱地址无效"),
-    VERIFICATION_CODE_GENERATE_FAILED(50005, "验证码生成失败");
+    VERIFICATION_CODE_GENERATE_FAILED(50005, "验证码生成失败"),
+    EMAIL_TEMPLATE_DISABLED(50006, "邮件模板已禁用"),
     ;
 
     /**

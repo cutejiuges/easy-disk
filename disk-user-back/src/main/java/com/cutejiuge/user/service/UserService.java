@@ -1,9 +1,9 @@
 package com.cutejiuge.user.service;
 
 import com.cutejiuge.common.response.Result;
-import com.cutejiuge.user.pojo.dto.RegisterDTO;
-import com.cutejiuge.user.pojo.vo.CaptchaVO;
-import com.cutejiuge.user.pojo.vo.RegisterVO;
+import com.cutejiuge.iface.dto.user.RegisterDTO;
+import com.cutejiuge.iface.vo.user.CaptchaVO;
+import com.cutejiuge.iface.vo.user.RegisterVO;
 
 /**
  * 用户服务层接口
