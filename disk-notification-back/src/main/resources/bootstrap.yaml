@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: diskNotificationBack
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
+        namespace: ${NACOS_NAMESPACE:06a37708-b4cf-4cf9-9275-4e15b863d25f}
+        group: ${NACOS_GROUP:easy-disk}
+      config:
+        server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
+        namespace: ${NACOS_NAMESPACE:06a37708-b4cf-4cf9-9275-4e15b863d25f}
+        group: ${NACOS_GROUP:easy-disk}
+        file-extension: yaml
+        shared-configs:
+          - data-id: ${spring.application.name}Config.yaml
+            group: ${NACOS_GROUP:easy-disk}
+            refresh: true
